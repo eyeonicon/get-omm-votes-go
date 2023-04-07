@@ -1,12 +1,15 @@
 package calls
 
 import (
+	"encoding/json"
 	"fmt"
+	"math/big"
+	"os"
+	"strconv"
+
 	"github.com/eyeonicon/go-icon-sdk/transactions"
 	"github.com/eyeonicon/go-icon-sdk/util"
 	"github.com/icon-project/goloop/client"
-	"math/big"
-	"strconv"
 )
 
 var BOOSTED_OMM = "cxeaff5a10cb72bf85965b8b4af3e708ab772b7921"
@@ -160,4 +163,26 @@ func GetOMMTotalVotes(c *client.ClientV3, validator string) *big.Int {
 	}
 
 	return amount
+}
+
+
+func ExportOMMVoters(c *client.ClientV3, validator string) {
+	voters := GetValidatorVotes(c,validator)
+	
+	data, err := json.Marshal(voters)
+	if err != nil {
+		panic(err)
+	}
+
+	file, err := os.Create("../reports/test.json")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	_, err = file.Write(data)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
 }

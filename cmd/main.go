@@ -27,6 +27,6 @@ func main() {
 
 	c := client.NewClientV3(networks.Mainnet().URL)
 
-	calls.GetOMMTotalVotes(c, "hx2e7db537ca3ff73336bee1bab4cf733a94ae769b")
+	calls.ExportOMMVoters(c, "hx2e7db537ca3ff73336bee1bab4cf733a94ae769b")
 
 }
