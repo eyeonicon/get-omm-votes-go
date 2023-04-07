@@ -11,7 +11,7 @@
   </a>
 
   <!-- make one for go ref stuff -->
-  <a href="https://goreportcard.com/report/github.com/eyeonicon/get-omm-votes-gok">
+  <a href="https://goreportcard.com/report/github.com/eyeonicon/get-omm-votes-go">
     <img src="https://goreportcard.com/badge/github.com/eyeonicon/get-omm-votes-go" alt="Go Report Card">
   </a>
 
