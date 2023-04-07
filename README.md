@@ -18,4 +18,28 @@
 
 </p>
 
-# get omm votes delegation on specific validator
+# Get OMM delegation on specific validator
+
+This is a simple Go package to get the OMM delegation on a specific validator.
+
+## How to use
+
+First clone repository. 
+
+The main package is located at cmd/main.go. You can build it with the following command:
+
+```bash
+go build -o get-omm-votes-go cmd/main.go
+```
+
+Then you can run it with the following command:
+
+```bash
+./get-omm-votes-go <validator_address>
+```
+
+There will be a report exported to the reports folder with a filename that is a timestamp.
+
+The calls package contains all the data fetching stuff. If needed there is also 'GetOMMTotalVotes' function that returns the total votes on the given validator.
+
+

@@ -25,5 +25,4 @@ func main() {
 	c := client.NewClientV3(networks.Mainnet().URL)
 
 	calls.ExportOMMVoters(c, validator)
-
 }
