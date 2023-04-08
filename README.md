@@ -18,6 +18,9 @@
 
 </p>
 
+# important!! program might not work correct atm, working on it.
+date: 2023-04-08
+
 # Get OMM delegation on specific validator
 
 This is a simple Go package to get the OMM delegation on a specific validator.
