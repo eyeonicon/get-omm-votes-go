@@ -168,16 +168,11 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 				}
 
 				if vote.Address == validator {
-					fmt.Println("vote on us by: ", _usr, vote.VotesInIcx)
+					
 					_amount := util.HexToBigInt(vote.VotesInIcx)
 					_updatedAmount := new(big.Int).Add(_user.votes, _amount)
 					_user.votes = _updatedAmount
-					// _user := User{
-					// 	address: _usr,
-					// 	votes:   util.HexToBigInt(vote.VotesInIcx),
-					// }
-
-
+	
 					mu.Lock()
 					validatorVotes = append(validatorVotes, _user)
 					mu.Unlock()
