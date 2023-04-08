@@ -133,11 +133,15 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 	for _, user := range users {
 		wg.Add(1)
 		go func(_usr string) {
-
 			defer wg.Done()
 
 			params := map[string]interface{}{
 				"_user": _usr,
+			}
+
+			_user := User{
+				address: _usr,
+				votes: big.NewInt(0),
 			}
 
 			callObj := transactions.CallBuilder(DELEGATION, "getUserICXDelegation", params)
@@ -156,18 +160,24 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 				if !ok {
 					panic("err")
 				}
+
 				vote := VoteInfo{
-					Address:    voteMap["_address"].(string),
+					Address:    voteMap["_address"].(string), // is address of validator
 					VotesInIcx: voteMap["_votes_in_icx"].(string),
 					VotesInPer: voteMap["_votes_in_per"].(string),
 				}
 
 				if vote.Address == validator {
 					fmt.Println("vote on us by: ", _usr, vote.VotesInIcx)
-					_user := User{
-						address: _usr,
-						votes:   util.HexToBigInt(vote.VotesInIcx),
-					}
+					_amount := util.HexToBigInt(vote.VotesInIcx)
+					_updatedAmount := new(big.Int).Add(_user.votes, _amount)
+					_user.votes = _updatedAmount
+					// _user := User{
+					// 	address: _usr,
+					// 	votes:   util.HexToBigInt(vote.VotesInIcx),
+					// }
+
+
 					mu.Lock()
 					validatorVotes = append(validatorVotes, _user)
 					mu.Unlock()
@@ -176,7 +186,7 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 		}(user)
 	}
 	wg.Wait()
-	fmt.Printf("GetValidorVotes took %.2f seconds\n", time.Since(start).Seconds())
+	fmt.Printf("GetValidatorVotes took %.2f seconds\n", time.Since(start).Seconds())
 	return validatorVotes
 }
 
