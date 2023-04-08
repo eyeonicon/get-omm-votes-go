@@ -18,7 +18,7 @@
 
 </p>
 
-# important!! program might not work correct atm, working on it.
+# important!! found a bug, program might not work correct atm, working on it.
 date: 2023-04-08
 
 # Get OMM delegation on specific validator

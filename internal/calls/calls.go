@@ -146,7 +146,6 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 				panic(err)
 			}
 
-			// Assuming the response data is stored in a variable called `res`
 			resSlice, ok := res.([]interface{})
 			if !ok {
 				panic("err")
@@ -164,6 +163,7 @@ func GetValidatorVotes(c *client.ClientV3, validator string) []User {
 				}
 
 				if vote.Address == validator {
+					fmt.Println("vote on us by: ", _usr, vote.VotesInIcx)
 					_user := User{
 						address: _usr,
 						votes:   util.HexToBigInt(vote.VotesInIcx),
@@ -196,7 +196,7 @@ func ExportOMMVoters(c *client.ClientV3, validator string) {
 	voters := GetValidatorVotes(c, validator)
 	now := time.Now()
 	timestamp := now.Format("2006-01-02_15-04-05")
-	fileName := fmt.Sprintf("../reports/%s.json", timestamp)
+	fileName := fmt.Sprintf("reports/%s.json", timestamp)
 
 	voterMap := make(map[string]*big.Int)
 	var wg sync.WaitGroup
